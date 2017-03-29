@@ -16,6 +16,8 @@ web:
     - "5000:5000"
   command: /usr/bin/python /app/app.py
   restart: always
+  volumes:
+    - ./web:/app
 
 mongodb:
   restart: always
