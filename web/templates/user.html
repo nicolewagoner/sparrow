@@ -1,7 +1,14 @@
 <!doctype html>
-<title>Add User:</title>
-<form action="/user" method="post">
-  <input name="first_name" type="text" value"first_name">
-  <input name="last_name" type="text" value"last_name">
-  <input name="submit" type="submit" value="submit">
-</form>
+<head>
+  <link href="/static/css/main.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Add User</h1>
+  <form action="/user" method="post">
+    <label for="first_name">First Name</label>
+    <input name="first_name" type="text" value"first_name">
+    <label for="last_name">Last Name</label>
+    <input name="last_name" type="text" value"last_name">
+    <input name="submit" type="submit" value="submit">
+  </form>
+</body>
