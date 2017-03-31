@@ -62,7 +62,7 @@ def get_one_user(first_name):
         }
         return jsonify({'result': output})
     else:
-        return render_template('user.html')
+        return render_template('user.html', first_name=first_name)
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@
 {% endblock %}
 {% block content %}
   <h1>Add User</h1>
+  <p>{{ first_name }} does not exist! Submit the form to add a new user.</p>
   <form action="/user" method="post">
     <label for="first_name">First Name</label>
     <input name="first_name" type="text" value"first_name">
