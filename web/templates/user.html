@@ -15,10 +15,16 @@
   Submit the form to add a new user.
   </p>
   <form action="/user" method="post">
-    <label for="first_name">First Name</label>
-    <input name="first_name" type="text" value"first_name">
-    <label for="last_name">Last Name</label>
-    <input name="last_name" type="text" value"last_name">
-    <input name="submit" type="submit" value="submit">
+    <div class="form-row">
+      <label for="first_name">First Name</label>
+      <input name="first_name" type="text" value"first_name">
+    </div>
+    <div class="form-row">
+      <label for="last_name">Last Name</label>
+      <input name="last_name" type="text" value"last_name">
+    </div>
+    <div class="form-row">
+      <input name="submit" type="submit" value="submit">
+    </div>
   </form>
 {% endblock %}
