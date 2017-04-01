@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+from config import BaseConfig
 
 app = Flask(__name__)
-
+app.config.from_object(BaseConfig)
 
 try:
     client = MongoClient('mongodb', 27017)

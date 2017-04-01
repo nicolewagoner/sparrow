@@ -18,6 +18,7 @@ web:
   restart: always
   volumes:
     - ./web:/app
+  env_file: .env
 
 mongodb:
   restart: always
