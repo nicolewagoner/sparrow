@@ -3,9 +3,15 @@ from flask import Flask, render_template, request, jsonify, flash, url_for, \
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 from config import BaseConfig
+from raven.contrib.flask import Sentry
+from werkzeug.exceptions import BadRequest
 
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
+sentry = Sentry(
+    app,
+    dsn=BaseConfig.SENTRY_DSN
+)
 
 try:
     client = MongoClient('mongodb', 27017)
@@ -75,6 +81,11 @@ def get_one_user(first_name=None):
             return jsonify({'result': output})
 
     return render_template('user.html', first_name=first_name)
+
+
+@app.errorhandler(BadRequest)
+def handle_bad_request(e):
+    return 'bad request!'
 
 
 if __name__ == '__main__':
