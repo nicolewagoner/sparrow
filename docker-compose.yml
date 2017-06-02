@@ -11,7 +11,7 @@ nginx:
 web:
   build: ./web
   links:
-    - mongodb
+    - postgres:postgres
   ports:
     - "5000:5000"
   command: /usr/bin/python /app/app.py
@@ -20,10 +20,16 @@ web:
     - ./web:/app
   env_file: .env
 
-mongodb:
-  restart: always
-  build: ./mongo
+data:
+  image: postgres:latest
   volumes:
-    - data:/data
+    - /var/lib/postgresql
+  command: "true"
+
+postgres:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - data
   ports:
-    - "27017:27017"
+    - "5432:5432"
