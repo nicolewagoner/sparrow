@@ -13,7 +13,7 @@ web:
   links:
     - postgres:postgres
   ports:
-    - "5000:5000"
+    - "5002:5000"
   command: /usr/bin/python /app/app.py
   restart: always
   volumes:
@@ -32,4 +32,4 @@ postgres:
   volumes_from:
     - data
   ports:
-    - "5432:5432"
+    - "5431:5431"
