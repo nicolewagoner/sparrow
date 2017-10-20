@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Sparrow{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Sparrow</h1>
+  <p>Find live music in your area from artists you are following on Spotify</p>
+  <form action="/events" method="post">
+    <div class="form-row">
+      <label for="location">Location</label>
+      <input name="location" type="text" value"location" placeholder="New York, NY">
+    </div>
+    <div class="form-row">
+      <input name="auth_spotify" type="button" value"auth_spotify">
+    </div>
+    <div class="form-row">
+      <input name="submit" type="submit" value="submit">
+    </div>
+  </form>
+{% endblock %}
