@@ -1,3 +1,4 @@
 Flask==0.10.1
 Raven
 Blinker
+spotipy==2.4.4
