@@ -41,29 +41,6 @@ def test():
     return jsonify({'result': output})
 
 
-@app.route('/test-authorize-spotify')
-def test_authorize_spotify():
-    scope = 'user-library-read'
-    username = "rattlenhumn"
-    credentials = oauth2.SpotifyClientCredentials(
-        client_id=BaseConfig.SPOTIFY_CLIENT_ID,
-        client_secret=BaseConfig.SPOTIFY_CLIENT_SECRET)
-
-    token = util.prompt_for_user_token(
-        username,
-        scope,
-        client_id=BaseConfig.SPOTIFY_CLIENT_ID,
-        client_secret=BaseConfig.SPOTIFY_CLIENT_SECRET,
-        redirect_uri=BaseConfig.SPOTIFY_REDIRECT_URL)
-
-    if token:
-        sp = spotipy.Spotify(auth=token)
-        results = sp.current_user_saved_tracks()
-        return jsonify({'result': results})
-    else:
-        return "Can't get token for user", username
-
-
 @app.route('/authorize-spotify', methods=['POST', 'GET'])
 def authorize_spotify():
     # TODO implement location checks
