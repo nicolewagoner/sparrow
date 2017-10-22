@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, jsonify, flash, url_for, \
-    redirect
+    redirect, session
 from config import BaseConfig
 from raven.contrib.flask import Sentry
 from werkzeug.exceptions import BadRequest
+import requests
 import spotipy
 import spotipy.oauth2 as oauth2
-import spotipy.util as util
+import urllib
+import json
+import Geohash
 # from random import choice
 # from string import ascii_uppercase
 
@@ -43,15 +46,28 @@ def test():
 
 @app.route('/authorize-spotify', methods=['POST', 'GET'])
 def authorize_spotify():
-    # TODO implement location checks
-    # location = request.form['location']
+    # First check we have a location
+    location = "New York, NY"  # request.form['location']
+    if not location:
+        index()
+
+    payload = {'address': location,
+               'key': BaseConfig.GOOGLE_GEOCODING}
+    GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json"
+    urlparams = urllib.urlencode(payload)
+    r = requests.get("%s?%s" % (GOOGLE_GEOCODE_URL, urlparams))
+    if not r.status_code == 200:
+        return "Error"
+    json_data = json.loads(r.text)
+    lat = json_data["results"][0]["geometry"]["location"]["lat"]
+    lng = json_data["results"][0]["geometry"]["location"]["lng"]
+    session['geohash'] = Geohash.encode(lat, lng)
 
     # TODO implement state & show_dialog
     # https://github.com/plamere/spotipy/issues/211
     # stateKey = 'spotify_auth_state'
     # state = ''.join(choice(ascii_uppercase) for i in range(16))
     # res.cookie(stateKey, state)
-
     oauth = oauth2.SpotifyOAuth(
         client_id=BaseConfig.SPOTIFY_CLIENT_ID,
         client_secret=BaseConfig.SPOTIFY_CLIENT_SECRET,
